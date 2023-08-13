@@ -1,9 +1,8 @@
 {
-  "private": true,
   "displayName": "HTTP-platform",
   "name": "homebridge-http-platform",
   "version": "1.0.0",
-  "description": "Create homekit acc",
+  "description": "Create homekit accessory with HTTP",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
