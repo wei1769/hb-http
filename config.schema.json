@@ -1,15 +1,88 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "HTTP-platform",
   "pluginType": "platform",
   "singular": true,
   "schema": {
     "type": "object",
     "properties": {
-      "name": {
-        "title": "Name",
-        "type": "string",
+      "devices": {
+        "title": "Devices list",
+        "type": "array",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "uniqueItems": true,
+        "items": {
+          "title": "HTTP device",
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "required": true
+            },
+            "url": {
+              "title": "URL",
+              "type": "string",
+              "required": true
+            },
+            "on": {
+              "title": "ON",
+              "type": "object",
+              "required": true,
+              "properties": {
+                "method": {
+                  "title": "Method",
+                  "type": "string",
+                  "required": true,
+                  "enum": ["GET", "POST", "PUT", "CONNECT", "PATCH"]
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string",
+                  "required": true,
+                  "default": "/on"
+                }
+              }
+            },
+            "off": {
+              "title": "OFF",
+              "type": "object",
+              "required": true,
+              "properties": {
+                "method": {
+                  "title": "Method",
+                  "type": "string",
+                  "required": true,
+                  "enum": ["GET", "POST", "PUT", "CONNECT", "PATCH"]
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string",
+                  "required": true,
+                  "default": "/off"
+                }
+              }
+            },
+            "status": {
+              "title": "Status",
+              "type": "object",
+              "required": true,
+              "properties": {
+                "method": {
+                  "title": "Method",
+                  "type": "string",
+                  "required": true,
+                  "enum": ["GET", "POST", "PUT", "CONNECT", "PATCH"]
+                },
+                "path": {
+                  "title": "Path",
+                  "type": "string",
+                  "required": true,
+                  "default": "/status"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
