@@ -1,7 +1,7 @@
 {
   "displayName": "HTTP-platform",
   "name": "homebridge-http-platform",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Create homekit accessory with HTTP",
   "license": "Apache-2.0",
   "repository": {
