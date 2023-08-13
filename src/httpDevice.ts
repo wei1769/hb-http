@@ -60,10 +60,22 @@ export class SimpleHttpSwitch {
           url: onUrl,
         })
       );
-      await axios.request<null>({
-        method: this.accessory.context.on.method.toString(),
-        url: onUrl,
-      });
+      try {
+        await axios.request<null>({
+          method: this.accessory.context.on.method.toString(),
+          url: onUrl,
+        });
+      } catch (e) {
+        this.platform.log.error(
+          JSON.stringify({
+            err: e,
+            message: "error turning on device " + this.accessory.context.name,
+          })
+        );
+        throw new this.platform.api.hap.HapStatusError(
+          this.platform.api.hap.HAPStatus.SERVICE_COMMUNICATION_FAILURE
+        );
+      }
     } else {
       const offUrl =
         this.accessory.context.url + this.accessory.context.off.path;
@@ -74,10 +86,22 @@ export class SimpleHttpSwitch {
           url: offUrl,
         })
       );
-      await axios.request<null>({
-        method: this.accessory.context.on.method.toString(),
-        url: offUrl,
-      });
+      try {
+        await axios.request<null>({
+          method: this.accessory.context.off.method.toString(),
+          url: offUrl,
+        });
+      } catch (e) {
+        this.platform.log.error(
+          JSON.stringify({
+            err: e,
+            message: "error turning off device " + this.accessory.context.name,
+          })
+        );
+        throw new this.platform.api.hap.HapStatusError(
+          this.platform.api.hap.HAPStatus.SERVICE_COMMUNICATION_FAILURE
+        );
+      }
     }
     this.switchState.On = value as boolean;
   }
@@ -104,6 +128,12 @@ export class SimpleHttpSwitch {
       }
       return this.switchState.On;
     } catch (e) {
+      this.platform.log.error(
+        JSON.stringify({
+          err: e,
+          message: "error getting status from " + this.accessory.context.name,
+        })
+      );
       throw new this.platform.api.hap.HapStatusError(
         this.platform.api.hap.HAPStatus.SERVICE_COMMUNICATION_FAILURE
       );
